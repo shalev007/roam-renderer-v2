@@ -13,6 +13,9 @@
     "moduleDetection": "force",
     "skipLibCheck": true,
     "moduleResolution": "nodenext",
-    "esModuleInterop": true
-  }
+    "esModuleInterop": true,
+    "jsx": "react-jsx"
+  },
+  "include": ["src/**/*"],
+  "exclude": ["src/web/**/*"]
 }
