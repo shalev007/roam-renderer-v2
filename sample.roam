@@ -1,0 +1,15 @@
+home | #loc(32.0853,34.7818) | @10.01.2026::08:30
+  > train | $22\ils
+  > "Jerusalem central" | #loc(31.7890,35.2030) | @10.01.2026::10:10
+  > walk
+  > "Jaffa Gate" | #loc(31.7767,35.2297) | @10.01.2026::10:30 | $0
+  > walk
+  > "Abu Shukri" | #loc(31.7784,35.2297) | @10.01.2026::13:30 | ~$15\ils | ? eat standing at the counter
+  > walk | @10.01.2026::15:30
+  > "Ramparts Walk" | #loc(31.7780,35.2310) | @10.01.2026::15:45 | $8\ils | ?link:parks.org.il/ramparts
+  > walk
+  > "Legacy Ottoman Hotel" | #loc(31.7800,35.2260) | @10.01.2026::22:00 | $280\ils
+  > walk
+  > "Mount of Olives" | #loc(31.7784,35.2460) | @11.01.2026::08:20 | $0 | ? go early — best light
+  > bus | $5\ils | @11.01.2026::10:30
+  > "Yad Vashem" | #loc(31.7745,35.1756) | @11.01.2026::11:00 | $0 | ?link:yadvashem.org/visit
