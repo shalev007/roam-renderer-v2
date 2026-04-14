@@ -1,8 +1,7 @@
 import { useEffect, useRef } from "react";
 import L from "leaflet";
 import { useTrip, useTripDispatch } from "../context/TripContext.js";
-import { getDayForIndex } from "../utils/days.js";
-import type { RoamNode, Timestamp } from "../../types.js";
+import type { DerivedNode, Timestamp } from "../../types.js";
 
 const TEAL = "#0d9488";
 const BLUE = "#3b82f6";
@@ -13,23 +12,37 @@ function formatTime(ts?: Timestamp): string {
   return `${ts.time} · ${ts.date}`;
 }
 
-function isOvernight(nodes: { node: RoamNode; index: number }[], idx: number, trip: any[]): boolean {
-  const node = trip[idx];
-  if (!node || node.type !== "node" || !node.arrival) return false;
-  const nextEdge = trip[idx + 1];
-  if (!nextEdge || nextEdge.type !== "edge" || !nextEdge.departure) return false;
-  return nextEdge.departure.date !== node.arrival.date;
+function fmtDuration(mins: number): string {
+  const h = Math.floor(mins / 60);
+  const m = Math.round(mins % 60);
+  if (h === 0) return `${m}m`;
+  if (m === 0) return `${h}h`;
+  return `${h}h ${m}m`;
+}
+
+function fmtDistance(km: number): string {
+  if (km < 1) return `${Math.round(km * 1000)}m`;
+  return `${km.toFixed(1)}km`;
+}
+
+function getDayForIndex(days: { startIndex: number; endIndex: number }[], index: number): number | null {
+  for (let d = 0; d < days.length; d++) {
+    const day = days[d]!;
+    if (index >= day.startIndex && index <= day.endIndex) return d;
+  }
+  return null;
 }
 
 export function TripMap() {
-  const { trip, days, selectedDay, selectedNode } = useTrip();
+  const { trip, agg, selectedDay, selectedNode } = useTrip();
   const dispatch = useTripDispatch();
   const mapContainer = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
   const layerRef = useRef<L.LayerGroup | null>(null);
   const markersRef = useRef<Map<number, L.CircleMarker>>(new Map());
 
-  // Init map once
+  const days = agg?.days ?? [];
+
   useEffect(() => {
     if (!mapContainer.current || mapRef.current) return;
     const map = L.map(mapContainer.current, { zoomControl: false });
@@ -40,14 +53,9 @@ export function TripMap() {
     map.setView([31.78, 35.22], 13);
     layerRef.current = L.layerGroup().addTo(map);
     mapRef.current = map;
-
-    return () => {
-      map.remove();
-      mapRef.current = null;
-    };
+    return () => { map.remove(); mapRef.current = null; };
   }, []);
 
-  // Draw trip
   useEffect(() => {
     const map = mapRef.current;
     const layer = layerRef.current;
@@ -56,8 +64,7 @@ export function TripMap() {
     layer.clearLayers();
     markersRef.current.clear();
 
-    // Collect nodes with locations
-    const locNodes: { node: RoamNode; index: number; latLng: L.LatLng }[] = [];
+    const locNodes: { node: DerivedNode; index: number; latLng: L.LatLng }[] = [];
     for (let i = 0; i < trip.length; i++) {
       const item = trip[i]!;
       if (item.type === "node" && item.location) {
@@ -68,17 +75,15 @@ export function TripMap() {
         });
       }
     }
-
     if (locNodes.length === 0) return;
 
-    // Draw polyline segments
+    // Polyline segments
     for (let s = 0; s < locNodes.length - 1; s++) {
       const from = locNodes[s]!;
       const to = locNodes[s + 1]!;
       const fromDay = getDayForIndex(days, from.index);
       const toDay = getDayForIndex(days, to.index);
-      const dimmed =
-        selectedDay !== null && fromDay !== selectedDay && toDay !== selectedDay;
+      const dimmed = selectedDay !== null && fromDay !== selectedDay && toDay !== selectedDay;
 
       L.polyline([from.latLng, to.latLng], {
         color: dimmed ? "#cbd5e1" : TEAL,
@@ -88,31 +93,32 @@ export function TripMap() {
       }).addTo(layer);
     }
 
-    // Draw markers
+    // Markers
     for (const ln of locNodes) {
       const day = getDayForIndex(days, ln.index);
       const dimmed = selectedDay !== null && day !== selectedDay;
-      const overnight = isOvernight(locNodes, ln.index, trip);
+      const overnight = ln.node.duration !== undefined && ln.node.duration >= 360; // 6h+
       const color = overnight ? BLUE : TEAL;
 
-      // Build popup
       let popup = `<strong>${ln.node.name}</strong>`;
       if (ln.node.arrival) popup += `<br/>${formatTime(ln.node.arrival)}`;
 
-      // Duration: time until next edge departs
+      if (ln.node.duration !== undefined) {
+        popup += `<br/>Stay: <b>${fmtDuration(ln.node.duration)}</b>`;
+      }
+
+      if (ln.node.distanceToNext !== undefined) {
+        popup += `<br/>Next stop: ${fmtDistance(ln.node.distanceToNext)}`;
+      }
+
+      // Edge info (travel time, speed)
       const nextEdge = trip[ln.index + 1];
-      if (ln.node.arrival && nextEdge?.type === "edge" && nextEdge.departure) {
-        const arr = new Date(
-          `${ln.node.arrival.date.split(".").reverse().join("-")}T${ln.node.arrival.time}:00`,
-        );
-        const dep = new Date(
-          `${nextEdge.departure.date.split(".").reverse().join("-")}T${nextEdge.departure.time}:00`,
-        );
-        const mins = Math.round((dep.getTime() - arr.getTime()) / 60000);
-        if (mins > 0) {
-          const h = Math.floor(mins / 60);
-          const m = mins % 60;
-          popup += `<br/>Duration: ${h > 0 ? `${h}h ` : ""}${m > 0 ? `${m}m` : ""}`;
+      if (nextEdge?.type === "edge") {
+        if (nextEdge.travelTime !== undefined) {
+          popup += `<br/>Travel: ${fmtDuration(nextEdge.travelTime)} by ${nextEdge.mode}`;
+        }
+        if (nextEdge.speed !== undefined) {
+          popup += ` (${Math.round(nextEdge.speed)} km/h)`;
         }
       }
 
@@ -138,20 +144,16 @@ export function TripMap() {
         opacity: dimmed ? DIM : 1,
       })
         .bindPopup(popup)
-        .on("click", () => {
-          dispatch({ type: "SELECT_NODE", node: ln.index });
-        })
+        .on("click", () => dispatch({ type: "SELECT_NODE", node: ln.index }))
         .addTo(layer);
 
       markersRef.current.set(ln.index, marker);
     }
 
-    // Fit bounds
     const bounds = L.latLngBounds(locNodes.map((n) => n.latLng));
     map.fitBounds(bounds, { padding: [60, 60] });
   }, [trip, days, selectedDay, dispatch]);
 
-  // Open popup when selectedNode changes
   useEffect(() => {
     if (selectedNode === null) return;
     const marker = markersRef.current.get(selectedNode);
@@ -161,11 +163,9 @@ export function TripMap() {
     }
   }, [selectedNode]);
 
-  // Fit to day bounds when day is selected
   useEffect(() => {
     const map = mapRef.current;
     if (!map || !trip || selectedDay === null) return;
-
     const day = days[selectedDay];
     if (!day) return;
 

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { parse } from "../../parser.js";
 import { validate } from "../../validator.js";
-import { deriveDays } from "../utils/days.js";
+import { derive, aggregate } from "../../derive.js";
 import { useTripDispatch } from "../context/TripContext.js";
 
 const SAMPLE = `home | #loc(32.0853,34.7818) | @10.01.2026::08:30
@@ -30,14 +30,15 @@ export function InputView() {
   const loadRoam = useCallback(
     (raw: string) => {
       try {
-        const trip = parse(raw);
-        const errors = validate(trip);
+        const parsed = parse(raw);
+        const errors = validate(parsed);
         if (errors.length > 0) {
           setError(errors.map((e) => `[${e.index}] ${e.message}`).join("\n"));
           return;
         }
-        const days = deriveDays(trip);
-        dispatch({ type: "SET_TRIP", trip, days });
+        const trip = derive(parsed);
+        const agg = aggregate(trip);
+        dispatch({ type: "SET_TRIP", trip, agg });
         setError(null);
       } catch (e: any) {
         setError(e.message ?? "Parse error");
@@ -46,7 +47,6 @@ export function InputView() {
     [dispatch],
   );
 
-  // Check URL for ?roam=base64 on mount
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const b64 = params.get("roam");
@@ -87,10 +87,7 @@ export function InputView() {
 
       <div
         className={`drop-zone ${dragging ? "dragging" : ""}`}
-        onDragOver={(e) => {
-          e.preventDefault();
-          setDragging(true);
-        }}
+        onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
         onDragLeave={() => setDragging(false)}
         onDrop={handleDrop}
         onClick={() => fileRef.current?.click()}
@@ -124,10 +121,7 @@ export function InputView() {
         </button>
         <button
           className="btn secondary"
-          onClick={() => {
-            setText(SAMPLE);
-            loadRoam(SAMPLE);
-          }}
+          onClick={() => { setText(SAMPLE); loadRoam(SAMPLE); }}
         >
           Load Sample
         </button>

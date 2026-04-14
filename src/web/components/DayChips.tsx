@@ -2,10 +2,10 @@ import React from "react";
 import { useTrip, useTripDispatch } from "../context/TripContext.js";
 
 export function DayChips() {
-  const { days, selectedDay } = useTrip();
+  const { agg, selectedDay } = useTrip();
   const dispatch = useTripDispatch();
 
-  if (days.length === 0) return null;
+  if (!agg || agg.days.length === 0) return null;
 
   return (
     <div className="day-chips">
@@ -15,7 +15,7 @@ export function DayChips() {
       >
         All days
       </button>
-      {days.map((day, i) => (
+      {agg.days.map((day, i) => (
         <button
           key={i}
           className={`chip ${selectedDay === i ? "active" : ""}`}

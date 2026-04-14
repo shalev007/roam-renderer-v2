@@ -1,22 +1,21 @@
 import React, { createContext, useContext, useReducer } from "react";
-import type { RoamTrip } from "../../types.js";
-import type { Day } from "../utils/days.js";
+import type { DerivedTrip, TripAggregate, DayAggregate } from "../../types.js";
 
 export interface TripState {
-  trip: RoamTrip | null;
-  days: Day[];
-  selectedDay: number | null; // index into days[], null = all
+  trip: DerivedTrip | null;
+  agg: TripAggregate | null;
+  selectedDay: number | null; // index into agg.days[], null = all
   selectedNode: number | null; // index into trip chain (only node indices)
 }
 
 type Action =
-  | { type: "SET_TRIP"; trip: RoamTrip; days: Day[] }
+  | { type: "SET_TRIP"; trip: DerivedTrip; agg: TripAggregate }
   | { type: "SELECT_DAY"; day: number | null }
   | { type: "SELECT_NODE"; node: number | null };
 
 const initialState: TripState = {
   trip: null,
-  days: [],
+  agg: null,
   selectedDay: null,
   selectedNode: null,
 };
@@ -24,7 +23,7 @@ const initialState: TripState = {
 function reducer(state: TripState, action: Action): TripState {
   switch (action.type) {
     case "SET_TRIP":
-      return { ...initialState, trip: action.trip, days: action.days };
+      return { ...initialState, trip: action.trip, agg: action.agg };
     case "SELECT_DAY":
       return { ...state, selectedDay: action.day, selectedNode: null };
     case "SELECT_NODE":
