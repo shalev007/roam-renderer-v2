@@ -1,0 +1,497 @@
+[
+  {
+    "type": "node",
+    "name": "NYC",
+    "location": {
+      "lat": 40.7128,
+      "lng": -74.006
+    },
+    "arrival": {
+      "date": "08.01.2026",
+      "time": "08:00",
+      "raw": "08.01.2026::08:00"
+    },
+    "costs": [],
+    "notes": [],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "flight",
+    "departure": {
+      "date": "08.01.2026",
+      "time": "18:00",
+      "raw": "08.01.2026::18:00"
+    },
+    "costs": [],
+    "notes": []
+  },
+  {
+    "type": "node",
+    "name": "San Francisco",
+    "location": {
+      "lat": 37.7749,
+      "lng": -122.4194
+    },
+    "arrival": {
+      "date": "08.01.2026",
+      "time": "22:00",
+      "raw": "08.01.2026::22:00"
+    },
+    "costs": [],
+    "notes": [],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "car",
+    "departure": {
+      "date": "09.01.2026",
+      "time": "09:00",
+      "raw": "09.01.2026::09:00"
+    },
+    "costs": [],
+    "notes": [
+      {
+        "type": "text",
+        "value": "#must-book-early"
+      }
+    ]
+  },
+  {
+    "type": "node",
+    "name": "Napa Valley",
+    "location": {
+      "lat": 38.2975,
+      "lng": -122.2869
+    },
+    "arrival": {
+      "date": "09.01.2026",
+      "time": "11:00",
+      "raw": "09.01.2026::11:00"
+    },
+    "costs": [],
+    "notes": [
+      {
+        "type": "text",
+        "value": "#expensive-weekends"
+      }
+    ],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "drive",
+    "departure": {
+      "date": "10.01.2026",
+      "time": "09:00",
+      "raw": "10.01.2026::09:00"
+    },
+    "costs": [],
+    "notes": []
+  },
+  {
+    "type": "node",
+    "name": "Yosemite",
+    "location": {
+      "lat": 37.8651,
+      "lng": -119.5383
+    },
+    "arrival": {
+      "date": "10.01.2026",
+      "time": "12:30",
+      "raw": "10.01.2026::12:30"
+    },
+    "costs": [],
+    "notes": [
+      {
+        "type": "text",
+        "value": "#must-book-early-in-park"
+      }
+    ],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "drive",
+    "departure": {
+      "date": "12.01.2026",
+      "time": "09:00",
+      "raw": "12.01.2026::09:00"
+    },
+    "costs": [],
+    "notes": []
+  },
+  {
+    "type": "node",
+    "name": "Monterey",
+    "location": {
+      "lat": 36.6002,
+      "lng": -121.8947
+    },
+    "arrival": {
+      "date": "12.01.2026",
+      "time": "13:00",
+      "raw": "12.01.2026::13:00"
+    },
+    "costs": [],
+    "notes": [],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "drive",
+    "departure": {
+      "date": "13.01.2026",
+      "time": "09:00",
+      "raw": "13.01.2026::09:00"
+    },
+    "costs": [],
+    "notes": []
+  },
+  {
+    "type": "node",
+    "name": "San Simeon",
+    "location": {
+      "lat": 35.6433,
+      "lng": -121.1806
+    },
+    "arrival": {
+      "date": "13.01.2026",
+      "time": "12:00",
+      "raw": "13.01.2026::12:00"
+    },
+    "costs": [],
+    "notes": [],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "drive",
+    "departure": {
+      "date": "14.01.2026",
+      "time": "09:00",
+      "raw": "14.01.2026::09:00"
+    },
+    "costs": [],
+    "notes": []
+  },
+  {
+    "type": "node",
+    "name": "Los Angeles",
+    "location": {
+      "lat": 34.0522,
+      "lng": -118.2437
+    },
+    "arrival": {
+      "date": "14.01.2026",
+      "time": "14:00",
+      "raw": "14.01.2026::14:00"
+    },
+    "costs": [],
+    "notes": [],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "drive",
+    "departure": {
+      "date": "15.01.2026",
+      "time": "12:00",
+      "raw": "15.01.2026::12:00"
+    },
+    "costs": [],
+    "notes": []
+  },
+  {
+    "type": "node",
+    "name": "San Diego",
+    "location": {
+      "lat": 32.7157,
+      "lng": -117.1611
+    },
+    "arrival": {
+      "date": "15.01.2026",
+      "time": "15:00",
+      "raw": "15.01.2026::15:00"
+    },
+    "costs": [],
+    "notes": [],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "drive",
+    "departure": {
+      "date": "17.01.2026",
+      "time": "09:00",
+      "raw": "17.01.2026::09:00"
+    },
+    "costs": [],
+    "notes": []
+  },
+  {
+    "type": "node",
+    "name": "Las Vegas",
+    "location": {
+      "lat": 36.1699,
+      "lng": -115.1398
+    },
+    "arrival": {
+      "date": "17.01.2026",
+      "time": "14:00",
+      "raw": "17.01.2026::14:00"
+    },
+    "costs": [],
+    "notes": [],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "drive",
+    "departure": {
+      "date": "18.01.2026",
+      "time": "07:00",
+      "raw": "18.01.2026::07:00"
+    },
+    "costs": [],
+    "notes": []
+  },
+  {
+    "type": "node",
+    "name": "Antelope Canyon",
+    "location": {
+      "lat": 36.8619,
+      "lng": -111.3743
+    },
+    "arrival": {
+      "date": "18.01.2026",
+      "time": "11:00",
+      "raw": "18.01.2026::11:00"
+    },
+    "costs": [],
+    "notes": [
+      {
+        "type": "text",
+        "value": "#must-book-early"
+      }
+    ],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "drive",
+    "departure": {
+      "date": "19.01.2026",
+      "time": "08:00",
+      "raw": "19.01.2026::08:00"
+    },
+    "costs": [],
+    "notes": []
+  },
+  {
+    "type": "node",
+    "name": "Las Vegas Airport",
+    "location": {
+      "lat": 36.084,
+      "lng": -115.1537
+    },
+    "arrival": {
+      "date": "19.01.2026",
+      "time": "13:00",
+      "raw": "19.01.2026::13:00"
+    },
+    "costs": [],
+    "notes": [],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "flight",
+    "departure": {
+      "date": "19.01.2026",
+      "time": "16:00",
+      "raw": "19.01.2026::16:00"
+    },
+    "costs": [],
+    "notes": []
+  },
+  {
+    "type": "node",
+    "name": "Mexico City",
+    "location": {
+      "lat": 19.4326,
+      "lng": -99.1332
+    },
+    "arrival": {
+      "date": "19.01.2026",
+      "time": "21:00",
+      "raw": "19.01.2026::21:00"
+    },
+    "costs": [],
+    "notes": [],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "flight",
+    "departure": {
+      "date": "20.01.2026",
+      "time": "09:00",
+      "raw": "20.01.2026::09:00"
+    },
+    "costs": [],
+    "notes": []
+  },
+  {
+    "type": "node",
+    "name": "Tulum",
+    "location": {
+      "lat": 20.2114,
+      "lng": -87.4654
+    },
+    "arrival": {
+      "date": "20.01.2026",
+      "time": "13:00",
+      "raw": "20.01.2026::13:00"
+    },
+    "costs": [],
+    "notes": [],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "drive",
+    "departure": {
+      "date": "24.01.2026",
+      "time": "10:00",
+      "raw": "24.01.2026::10:00"
+    },
+    "costs": [],
+    "notes": []
+  },
+  {
+    "type": "node",
+    "name": "Playa del Carmen",
+    "location": {
+      "lat": 20.6296,
+      "lng": -87.0739
+    },
+    "arrival": {
+      "date": "24.01.2026",
+      "time": "11:30",
+      "raw": "24.01.2026::11:30"
+    },
+    "costs": [],
+    "notes": [],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "ferry",
+    "departure": {
+      "date": "27.01.2026",
+      "time": "10:00",
+      "raw": "27.01.2026::10:00"
+    },
+    "costs": [],
+    "notes": []
+  },
+  {
+    "type": "node",
+    "name": "Isla Mujeres",
+    "location": {
+      "lat": 21.2322,
+      "lng": -86.7336
+    },
+    "arrival": {
+      "date": "27.01.2026",
+      "time": "11:00",
+      "raw": "27.01.2026::11:00"
+    },
+    "costs": [],
+    "notes": [],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "ferry",
+    "departure": {
+      "date": "31.01.2026",
+      "time": "10:00",
+      "raw": "31.01.2026::10:00"
+    },
+    "costs": [],
+    "notes": []
+  },
+  {
+    "type": "node",
+    "name": "Cancun",
+    "location": {
+      "lat": 21.1619,
+      "lng": -86.8515
+    },
+    "arrival": {
+      "date": "31.01.2026",
+      "time": "11:30",
+      "raw": "31.01.2026::11:30"
+    },
+    "costs": [],
+    "notes": [],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "flight",
+    "departure": {
+      "date": "01.02.2026",
+      "time": "09:00",
+      "raw": "01.02.2026::09:00"
+    },
+    "costs": [],
+    "notes": []
+  },
+  {
+    "type": "node",
+    "name": "NYC",
+    "location": {
+      "lat": 40.7128,
+      "lng": -74.006
+    },
+    "arrival": {
+      "date": "01.02.2026",
+      "time": "15:00",
+      "raw": "01.02.2026::15:00"
+    },
+    "costs": [],
+    "notes": [],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "flight",
+    "departure": {
+      "date": "05.02.2026",
+      "time": "20:00",
+      "raw": "05.02.2026::20:00"
+    },
+    "costs": [],
+    "notes": []
+  },
+  {
+    "type": "node",
+    "name": "Israel",
+    "location": {
+      "lat": 31.0461,
+      "lng": 34.8516
+    },
+    "arrival": {
+      "date": "06.02.2026",
+      "time": "14:00",
+      "raw": "06.02.2026::14:00"
+    },
+    "costs": [],
+    "notes": [],
+    "tags": []
+  }
+]

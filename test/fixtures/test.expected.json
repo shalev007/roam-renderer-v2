@@ -1,0 +1,560 @@
+[
+  {
+    "type": "node",
+    "name": "San Francisco",
+    "location": {
+      "lat": 37.77,
+      "lng": -122.42
+    },
+    "arrival": {
+      "date": "08.10.2026",
+      "time": "22:00",
+      "raw": "08.10.2026::22:00"
+    },
+    "costs": [],
+    "notes": [],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "car",
+    "costs": [],
+    "notes": [
+      {
+        "type": "text",
+        "value": "Pick up car"
+      }
+    ]
+  },
+  {
+    "type": "node",
+    "name": "Napa Valley",
+    "location": {
+      "lat": 38.43,
+      "lng": -122.39
+    },
+    "arrival": {
+      "date": "09.10.2026",
+      "time": "14:00",
+      "raw": "09.10.2026::14:00"
+    },
+    "costs": [],
+    "notes": [
+      {
+        "type": "text",
+        "value": "Winery tasting"
+      }
+    ],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "car",
+    "costs": [],
+    "notes": []
+  },
+  {
+    "type": "node",
+    "name": "Napa Hotel",
+    "location": {
+      "lat": 38.3,
+      "lng": -122.29
+    },
+    "arrival": {
+      "date": "09.10.2026",
+      "time": "20:00",
+      "raw": "09.10.2026::20:00"
+    },
+    "costs": [],
+    "notes": [],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "car",
+    "departure": {
+      "date": "10.10.2026",
+      "time": "09:00",
+      "raw": "10.10.2026::09:00"
+    },
+    "costs": [],
+    "notes": []
+  },
+  {
+    "type": "node",
+    "name": "Winery",
+    "location": {
+      "lat": 38.45,
+      "lng": -122.4
+    },
+    "arrival": {
+      "date": "10.10.2026",
+      "time": "10:00",
+      "raw": "10.10.2026::10:00"
+    },
+    "costs": [],
+    "notes": [],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "car",
+    "departure": {
+      "date": "10.10.2026",
+      "time": "13:00",
+      "raw": "10.10.2026::13:00"
+    },
+    "costs": [],
+    "notes": []
+  },
+  {
+    "type": "node",
+    "name": "Yosemite Perimeter",
+    "location": {
+      "lat": 37.7,
+      "lng": -120
+    },
+    "arrival": {
+      "date": "10.10.2026",
+      "time": "16:30",
+      "raw": "10.10.2026::16:30"
+    },
+    "costs": [
+      {
+        "amount": 180,
+        "currency": "usd",
+        "approximate": true,
+        "optional": false
+      }
+    ],
+    "notes": [],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "car",
+    "departure": {
+      "date": "11.10.2026",
+      "time": "07:00",
+      "raw": "11.10.2026::07:00"
+    },
+    "costs": [],
+    "notes": []
+  },
+  {
+    "type": "node",
+    "name": "Curry Village",
+    "location": {
+      "lat": 37.74,
+      "lng": -119.57
+    },
+    "arrival": {
+      "date": "11.10.2026",
+      "time": "20:00",
+      "raw": "11.10.2026::20:00"
+    },
+    "costs": [],
+    "notes": [
+      {
+        "type": "text",
+        "value": "Inside the park"
+      }
+    ],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "car",
+    "departure": {
+      "date": "12.10.2026",
+      "time": "15:00",
+      "raw": "12.10.2026::15:00"
+    },
+    "costs": [],
+    "notes": []
+  },
+  {
+    "type": "node",
+    "name": "Mariposa",
+    "location": {
+      "lat": 37.48,
+      "lng": -119.96
+    },
+    "arrival": {
+      "date": "12.10.2026",
+      "time": "17:00",
+      "raw": "12.10.2026::17:00"
+    },
+    "costs": [
+      {
+        "amount": 180,
+        "currency": "usd",
+        "approximate": true,
+        "optional": false
+      }
+    ],
+    "notes": [],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "car",
+    "departure": {
+      "date": "13.10.2026",
+      "time": "08:30",
+      "raw": "13.10.2026::08:30"
+    },
+    "costs": [],
+    "notes": []
+  },
+  {
+    "type": "node",
+    "name": "Monterey",
+    "location": {
+      "lat": 36.6,
+      "lng": -121.9
+    },
+    "arrival": {
+      "date": "13.10.2026",
+      "time": "11:30",
+      "raw": "13.10.2026::11:30"
+    },
+    "costs": [
+      {
+        "amount": 200,
+        "currency": "usd",
+        "approximate": true,
+        "optional": false
+      }
+    ],
+    "notes": [
+      {
+        "type": "text",
+        "value": "17-Mile Drive"
+      }
+    ],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "car",
+    "departure": {
+      "date": "14.10.2026",
+      "time": "09:00",
+      "raw": "14.10.2026::09:00"
+    },
+    "costs": [],
+    "notes": []
+  },
+  {
+    "type": "node",
+    "name": "Big Sur",
+    "location": {
+      "lat": 36.27,
+      "lng": -121.81
+    },
+    "arrival": {
+      "date": "14.10.2026",
+      "time": "12:00",
+      "raw": "14.10.2026::12:00"
+    },
+    "costs": [],
+    "notes": [],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "car",
+    "costs": [],
+    "notes": []
+  },
+  {
+    "type": "node",
+    "name": "San Simeon",
+    "location": {
+      "lat": 35.64,
+      "lng": -121.19
+    },
+    "arrival": {
+      "date": "14.10.2026",
+      "time": "18:00",
+      "raw": "14.10.2026::18:00"
+    },
+    "costs": [
+      {
+        "amount": 150,
+        "currency": "usd",
+        "approximate": true,
+        "optional": false
+      }
+    ],
+    "notes": [
+      {
+        "type": "text",
+        "value": "Elephant seals"
+      }
+    ],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "car",
+    "departure": {
+      "date": "15.10.2026",
+      "time": "09:00",
+      "raw": "15.10.2026::09:00"
+    },
+    "costs": [],
+    "notes": []
+  },
+  {
+    "type": "node",
+    "name": "Solvang",
+    "location": {
+      "lat": 34.59,
+      "lng": -120.14
+    },
+    "arrival": {
+      "date": "15.10.2026",
+      "time": "11:00",
+      "raw": "15.10.2026::11:00"
+    },
+    "costs": [],
+    "notes": [],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "car",
+    "costs": [],
+    "notes": []
+  },
+  {
+    "type": "node",
+    "name": "Santa Barbara",
+    "location": {
+      "lat": 34.42,
+      "lng": -119.7
+    },
+    "arrival": {
+      "date": "15.10.2026",
+      "time": "14:00",
+      "raw": "15.10.2026::14:00"
+    },
+    "costs": [],
+    "notes": [],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "car",
+    "costs": [],
+    "notes": []
+  },
+  {
+    "type": "node",
+    "name": "Los Angeles",
+    "location": {
+      "lat": 34.05,
+      "lng": -118.24
+    },
+    "arrival": {
+      "date": "15.10.2026",
+      "time": "20:00",
+      "raw": "15.10.2026::20:00"
+    },
+    "costs": [
+      {
+        "amount": 250,
+        "currency": "usd",
+        "approximate": true,
+        "optional": false
+      }
+    ],
+    "notes": [],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "car",
+    "departure": {
+      "date": "16.10.2026",
+      "time": "14:00",
+      "raw": "16.10.2026::14:00"
+    },
+    "costs": [],
+    "notes": []
+  },
+  {
+    "type": "node",
+    "name": "San Diego",
+    "location": {
+      "lat": 32.72,
+      "lng": -117.16
+    },
+    "arrival": {
+      "date": "16.10.2026",
+      "time": "16:30",
+      "raw": "16.10.2026::16:30"
+    },
+    "costs": [
+      {
+        "amount": 200,
+        "currency": "usd",
+        "approximate": true,
+        "optional": false
+      }
+    ],
+    "notes": [],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "car",
+    "departure": {
+      "date": "17.10.2026",
+      "time": "11:00",
+      "raw": "17.10.2026::11:00"
+    },
+    "costs": [],
+    "notes": []
+  },
+  {
+    "type": "node",
+    "name": "Las Vegas",
+    "location": {
+      "lat": 36.17,
+      "lng": -115.14
+    },
+    "arrival": {
+      "date": "17.10.2026",
+      "time": "16:00",
+      "raw": "17.10.2026::16:00"
+    },
+    "costs": [
+      {
+        "amount": 150,
+        "currency": "usd",
+        "approximate": true,
+        "optional": false
+      }
+    ],
+    "notes": [],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "car",
+    "departure": {
+      "date": "18.10.2026",
+      "time": "07:00",
+      "raw": "18.10.2026::07:00"
+    },
+    "costs": [],
+    "notes": []
+  },
+  {
+    "type": "node",
+    "name": "Antelope Canyon",
+    "location": {
+      "lat": 36.92,
+      "lng": -111.46
+    },
+    "arrival": {
+      "date": "18.10.2026",
+      "time": "12:00",
+      "raw": "18.10.2026::12:00"
+    },
+    "costs": [],
+    "notes": [],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "car",
+    "costs": [],
+    "notes": []
+  },
+  {
+    "type": "node",
+    "name": "Page, AZ",
+    "location": {
+      "lat": 36.91,
+      "lng": -111.45
+    },
+    "arrival": {
+      "date": "18.10.2026",
+      "time": "18:00",
+      "raw": "18.10.2026::18:00"
+    },
+    "costs": [
+      {
+        "amount": 160,
+        "currency": "usd",
+        "approximate": true,
+        "optional": false
+      }
+    ],
+    "notes": [],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "car",
+    "departure": {
+      "date": "19.10.2026",
+      "time": "08:00",
+      "raw": "19.10.2026::08:00"
+    },
+    "costs": [],
+    "notes": []
+  },
+  {
+    "type": "node",
+    "name": "Las Vegas Airport",
+    "location": {
+      "lat": 36.08,
+      "lng": -115.15
+    },
+    "arrival": {
+      "date": "19.10.2026",
+      "time": "13:00",
+      "raw": "19.10.2026::13:00"
+    },
+    "costs": [],
+    "notes": [
+      {
+        "type": "text",
+        "value": "Return car"
+      }
+    ],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "flight",
+    "departure": {
+      "date": "19.10.2026",
+      "time": "16:00",
+      "raw": "19.10.2026::16:00"
+    },
+    "costs": [],
+    "notes": []
+  },
+  {
+    "type": "node",
+    "name": "Mexico City",
+    "location": {
+      "lat": 19.43,
+      "lng": -99.13
+    },
+    "arrival": {
+      "date": "19.10.2026",
+      "time": "21:00",
+      "raw": "19.10.2026::21:00"
+    },
+    "costs": [],
+    "notes": [],
+    "tags": []
+  }
+]

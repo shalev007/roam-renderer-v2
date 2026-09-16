@@ -1,0 +1,258 @@
+[
+  {
+    "type": "node",
+    "name": "home",
+    "location": {
+      "lat": 32.0853,
+      "lng": 34.7818
+    },
+    "arrival": {
+      "date": "10.01.2026",
+      "time": "08:30",
+      "raw": "10.01.2026::08:30"
+    },
+    "costs": [],
+    "notes": [],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "train",
+    "costs": [
+      {
+        "amount": 22,
+        "currency": "ils",
+        "approximate": false,
+        "optional": false
+      }
+    ],
+    "notes": []
+  },
+  {
+    "type": "node",
+    "name": "Jerusalem central",
+    "location": {
+      "lat": 31.789,
+      "lng": 35.203
+    },
+    "arrival": {
+      "date": "10.01.2026",
+      "time": "10:10",
+      "raw": "10.01.2026::10:10"
+    },
+    "costs": [],
+    "notes": [],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "walk",
+    "costs": [],
+    "notes": []
+  },
+  {
+    "type": "node",
+    "name": "Jaffa Gate",
+    "location": {
+      "lat": 31.7767,
+      "lng": 35.2297
+    },
+    "arrival": {
+      "date": "10.01.2026",
+      "time": "10:30",
+      "raw": "10.01.2026::10:30"
+    },
+    "costs": [
+      {
+        "amount": 0,
+        "currency": "",
+        "approximate": false,
+        "optional": false
+      }
+    ],
+    "notes": [],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "walk",
+    "costs": [],
+    "notes": []
+  },
+  {
+    "type": "node",
+    "name": "Abu Shukri",
+    "location": {
+      "lat": 31.7784,
+      "lng": 35.2297
+    },
+    "arrival": {
+      "date": "10.01.2026",
+      "time": "13:30",
+      "raw": "10.01.2026::13:30"
+    },
+    "costs": [
+      {
+        "amount": 15,
+        "currency": "ils",
+        "approximate": true,
+        "optional": false
+      }
+    ],
+    "notes": [
+      {
+        "type": "text",
+        "value": "eat standing at the counter"
+      }
+    ],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "walk",
+    "departure": {
+      "date": "10.01.2026",
+      "time": "15:30",
+      "raw": "10.01.2026::15:30"
+    },
+    "costs": [],
+    "notes": []
+  },
+  {
+    "type": "node",
+    "name": "Ramparts Walk",
+    "location": {
+      "lat": 31.778,
+      "lng": 35.231
+    },
+    "arrival": {
+      "date": "10.01.2026",
+      "time": "15:45",
+      "raw": "10.01.2026::15:45"
+    },
+    "costs": [
+      {
+        "amount": 8,
+        "currency": "ils",
+        "approximate": false,
+        "optional": false
+      }
+    ],
+    "notes": [
+      {
+        "type": "link",
+        "value": "parks.org.il/ramparts"
+      }
+    ],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "walk",
+    "costs": [],
+    "notes": []
+  },
+  {
+    "type": "node",
+    "name": "Legacy Ottoman Hotel",
+    "location": {
+      "lat": 31.78,
+      "lng": 35.226
+    },
+    "arrival": {
+      "date": "10.01.2026",
+      "time": "22:00",
+      "raw": "10.01.2026::22:00"
+    },
+    "costs": [
+      {
+        "amount": 280,
+        "currency": "ils",
+        "approximate": false,
+        "optional": false
+      }
+    ],
+    "notes": [],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "walk",
+    "costs": [],
+    "notes": []
+  },
+  {
+    "type": "node",
+    "name": "Mount of Olives",
+    "location": {
+      "lat": 31.7784,
+      "lng": 35.246
+    },
+    "arrival": {
+      "date": "11.01.2026",
+      "time": "08:20",
+      "raw": "11.01.2026::08:20"
+    },
+    "costs": [
+      {
+        "amount": 0,
+        "currency": "",
+        "approximate": false,
+        "optional": false
+      }
+    ],
+    "notes": [
+      {
+        "type": "text",
+        "value": "go early — best light"
+      }
+    ],
+    "tags": []
+  },
+  {
+    "type": "edge",
+    "mode": "bus",
+    "departure": {
+      "date": "11.01.2026",
+      "time": "10:30",
+      "raw": "11.01.2026::10:30"
+    },
+    "costs": [
+      {
+        "amount": 5,
+        "currency": "ils",
+        "approximate": false,
+        "optional": false
+      }
+    ],
+    "notes": []
+  },
+  {
+    "type": "node",
+    "name": "Yad Vashem",
+    "location": {
+      "lat": 31.7745,
+      "lng": 35.1756
+    },
+    "arrival": {
+      "date": "11.01.2026",
+      "time": "11:00",
+      "raw": "11.01.2026::11:00"
+    },
+    "costs": [
+      {
+        "amount": 0,
+        "currency": "",
+        "approximate": false,
+        "optional": false
+      }
+    ],
+    "notes": [
+      {
+        "type": "link",
+        "value": "yadvashem.org/visit"
+      }
+    ],
+    "tags": []
+  }
+]
