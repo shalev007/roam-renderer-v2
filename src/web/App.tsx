@@ -3,10 +3,13 @@ import { TripProvider, useTrip, useTripDispatch } from "./context/TripContext.js
 import { parse } from "../parser.js";
 import { validate } from "../validator.js";
 import { derive, aggregate } from "../derive.js";
+import { updateNode } from "../serializer.js";
 import { TripMap } from "./components/TripMap.js";
 import { Timeline } from "./components/Timeline.js";
 import { ExpenseBar } from "./components/ExpenseBar.js";
 import { DayChips } from "./components/DayChips.js";
+import { EditPanel } from "./components/EditPanel.js";
+import type { RoamNode } from "../types.js";
 
 const SAMPLE = `## @10.01.2026 "Jerusalem Day Trip"
 
@@ -26,7 +29,11 @@ home | #loc(32.0853,34.7818) | @10.01.2026::08:30
   > bus | $5\\ils | @11.01.2026::10:30
   > "Yad Vashem" | #loc(31.7745,35.1756) | @11.01.2026::11:00 | $0 | ?link:yadvashem.org/visit`;
 
-function Editor() {
+interface EditorProps {
+  onTextChange: (text: string) => void;
+}
+
+function Editor({ onTextChange }: EditorProps) {
   const dispatch = useTripDispatch();
   const [text, setText] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -54,8 +61,15 @@ function Editor() {
     [dispatch],
   );
 
+  // Update text from external sources (e.g., EditPanel)
+  const updateText = useCallback((newText: string) => {
+    setText(newText);
+  }, []);
+
   // Debounced parsing on text change
   useEffect(() => {
+    onTextChange(text);
+    
     if (!text.trim()) return;
 
     if (debounceRef.current !== null) {
@@ -71,7 +85,7 @@ function Editor() {
         clearTimeout(debounceRef.current);
       }
     };
-  }, [text, loadRoam]);
+  }, [text, loadRoam, onTextChange]);
 
   // Load from URL param on mount
   useEffect(() => {
@@ -194,8 +208,14 @@ function Editor() {
   );
 }
 
-function Viewer() {
-  const { trip, agg } = useTrip();
+interface ViewerProps {
+  editorText: string;
+  onUpdateText: (text: string) => void;
+}
+
+function Viewer({ editorText, onUpdateText }: ViewerProps) {
+  const { trip, agg, selectedNode } = useTrip();
+  const dispatch = useTripDispatch();
 
   const handleCopyPrompt = async () => {
     try {
@@ -232,6 +252,27 @@ function Viewer() {
     );
   }
 
+  const handleNodeUpdate = (updates: Partial<RoamNode>) => {
+    if (selectedNode === null || !trip) return;
+    
+    try {
+      const updatedText = updateNode(trip, selectedNode, updates);
+      onUpdateText(updatedText);
+      dispatch({ type: "SELECT_NODE", node: null });
+    } catch (e: any) {
+      console.error("Failed to update node:", e);
+    }
+  };
+
+  const handleCloseEdit = () => {
+    dispatch({ type: "SELECT_NODE", node: null });
+  };
+
+  const selectedNodeData =
+    selectedNode !== null && trip?.[selectedNode]?.type === "node"
+      ? (trip[selectedNode] as RoamNode)
+      : null;
+
   return (
     <div className="viewer-panel">
       <DayChips />
@@ -240,15 +281,25 @@ function Viewer() {
         <ExpenseBar />
       </div>
       <Timeline />
+      
+      {selectedNodeData && (
+        <EditPanel
+          node={selectedNodeData}
+          onSave={handleNodeUpdate}
+          onClose={handleCloseEdit}
+        />
+      )}
     </div>
   );
 }
 
 function AppContent() {
+  const [editorText, setEditorText] = useState("");
+
   return (
     <div className="app-layout">
-      <Editor />
-      <Viewer />
+      <Editor onTextChange={setEditorText} />
+      <Viewer editorText={editorText} onUpdateText={setEditorText} />
     </div>
   );
 }
