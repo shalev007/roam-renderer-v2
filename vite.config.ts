@@ -5,6 +5,7 @@ export default defineConfig({
   plugins: [react()],
   root: ".",
   publicDir: "public",
+  base: "/roam-renderer-v2/",
   build: {
     outDir: "dist/web",
   },

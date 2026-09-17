@@ -2,6 +2,14 @@
 
 Plain-text travel itinerary format + parser + viewer.
 
+## Live Demo
+
+🌐 **[https://shalev007.github.io/roam-renderer-v2/](https://shalev007.github.io/roam-renderer-v2/)**
+
+Deployed automatically from the `pm/useful-working` branch via GitHub Actions.
+
+> **Note**: GitHub Pages for private repositories requires GitHub Pro. Make the repository public or upgrade to Pro to enable Pages deployment.
+
 ## What is Roam?
 
 Roam is a `.roam` file format for describing trips as a chain of nodes (places) and edges (transport). Write in plain text, see your trip on a map with timeline and costs.
