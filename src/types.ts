@@ -85,7 +85,7 @@ export interface DayAggregate {
   startIndex: number;
   endIndex: number;
   costsByCurrency: CostByCurrency[];
-  totalCost: number;        // deprecated: sum of all costs ignoring currency
+  totalCost: number;        // deprecated: sum of non-optional costs ignoring currency
   totalDuration: number;    // minutes at places
   totalTravelTime: number;  // minutes in transit
   totalDistance: number;     // km
@@ -93,7 +93,7 @@ export interface DayAggregate {
 
 export interface TripAggregate {
   costsByCurrency: CostByCurrency[];
-  totalCost: number;        // deprecated: sum of all costs ignoring currency
+  totalCost: number;        // deprecated: sum of non-optional costs ignoring currency
   totalDuration: number;
   totalTravelTime: number;
   totalDistance: number;
