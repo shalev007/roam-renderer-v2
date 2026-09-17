@@ -28,6 +28,8 @@ npm test           # run tests
 npm run build:web  # build web app
 ```
 
+**Requirements**: Node.js 18+ (tests use `tsx` for TypeScript execution, compatible with Node 22+)
+
 Web app opens at http://localhost:5173
 
 ## Example
