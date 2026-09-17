@@ -156,7 +156,10 @@ function aggregateRange(trip: DerivedTrip, start: number, end: number) {
 
     if (item.type === "node" || item.type === "edge") {
       for (const c of item.costs) {
-        totalCost += c.amount;
+        // Only add to totalCost if not optional (align with costsByCurrency.total)
+        if (!c.optional) {
+          totalCost += c.amount;
+        }
         
         const key = c.currency || "unknown";
         const existing = costMap.get(key) ?? { total: 0, approximate: 0, optional: 0 };
