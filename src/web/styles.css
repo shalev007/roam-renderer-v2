@@ -30,130 +30,158 @@ body {
   flex-direction: column;
 }
 
-/* ---- Input View ---- */
+/* ---- App Layout ---- */
 
-.input-view {
+.app-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100vh;
+  gap: 0;
+}
+
+/* ---- Editor Panel ---- */
+
+.editor-panel {
   display: flex;
   flex-direction: column;
+  background: var(--bg);
+  border-right: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.editor-header {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 20px;
-  padding: 40px;
-  height: 100vh;
-  max-width: 640px;
-  margin: 0 auto;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
 }
 
-.input-header {
-  text-align: center;
-}
-
-.input-header h1 {
-  font-size: 2.4rem;
+.editor-header h1 {
+  font-size: 1.2rem;
   font-weight: 700;
-  letter-spacing: -0.02em;
   color: var(--teal);
 }
 
-.input-header p {
-  color: var(--text-dim);
-  margin-top: 8px;
+.editor-actions {
+  display: flex;
+  gap: 8px;
 }
 
-.input-header code {
-  background: var(--surface);
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-size: 0.9em;
-}
-
-.drop-zone {
-  width: 100%;
-  border: 2px dashed var(--border);
-  border-radius: var(--radius);
-  padding: 32px;
-  text-align: center;
-  color: var(--text-dim);
-  cursor: pointer;
-  transition: border-color 0.2s, background 0.2s;
-}
-
-.drop-zone:hover,
-.drop-zone.dragging {
-  border-color: var(--teal);
-  background: rgba(13, 148, 136, 0.05);
-}
-
-.roam-editor {
-  width: 100%;
-  min-height: 200px;
-  background: var(--surface);
-  color: var(--text);
+.btn-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
   border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-size: 16px;
+}
+
+.btn-icon:hover:not(:disabled) {
+  background: var(--surface2);
+  border-color: var(--teal);
+}
+
+.btn-icon:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.editor-drop-target {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.editor-drop-target.dragging::before {
+  content: "Drop .roam file here";
+  position: absolute;
+  inset: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(13, 148, 136, 0.1);
+  border: 2px dashed var(--teal);
   border-radius: var(--radius);
+  color: var(--teal);
+  font-weight: 600;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.roam-editor-main {
+  flex: 1;
+  width: 100%;
+  background: var(--bg);
+  color: var(--text);
+  border: none;
   padding: 16px;
   font-family: "SF Mono", "Fira Code", "Cascadia Code", monospace;
   font-size: 13px;
   line-height: 1.6;
-  resize: vertical;
+  resize: none;
   outline: none;
-}
-
-.roam-editor:focus {
-  border-color: var(--teal);
 }
 
 .error {
   background: #450a0a;
   color: #fca5a5;
   padding: 12px 16px;
-  border-radius: var(--radius);
-  font-size: 13px;
+  font-size: 12px;
   font-family: monospace;
-  width: 100%;
   white-space: pre-wrap;
+  border-top: 1px solid #7f1d1d;
+  max-height: 120px;
+  overflow-y: auto;
+  flex-shrink: 0;
 }
 
-.input-actions {
-  display: flex;
-  gap: 12px;
-}
+/* ---- Viewer Panel ---- */
 
-.btn {
-  padding: 10px 24px;
-  border: none;
-  border-radius: var(--radius);
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: opacity 0.15s;
-}
-
-.btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-
-.btn.primary {
-  background: var(--teal);
-  color: white;
-}
-
-.btn.secondary {
-  background: var(--surface2);
-  color: var(--text);
-}
-
-.btn:hover:not(:disabled) {
-  opacity: 0.85;
-}
-
-/* ---- Viewer layout ---- */
-
-.viewer {
+.viewer-panel {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  overflow: hidden;
+}
+
+.viewer-empty {
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+}
+
+.empty-state {
+  text-align: center;
+  max-width: 360px;
+  padding: 40px;
+}
+
+.empty-icon {
+  font-size: 4rem;
+  margin-bottom: 16px;
+  opacity: 0.3;
+}
+
+.empty-state h2 {
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+.empty-state p {
+  color: var(--text-dim);
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .map-container {

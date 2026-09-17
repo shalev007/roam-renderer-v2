@@ -1,4 +1,4 @@
-import type { Cost, Location, Note, RoamEdge, RoamNode, RoamTrip, Timestamp } from "./types.js";
+import type { Cost, DayHeader, Location, Note, RoamEdge, RoamNode, RoamTrip, Timestamp } from "./types.js";
 
 function parseTimestamp(raw: string): Timestamp {
   const cleaned = raw.replace(/^@/, "");
@@ -98,12 +98,29 @@ function parseName(raw: string): string {
   return trimmed;
 }
 
+function parseDayHeader(line: string): DayHeader | null {
+  const match = line.match(/^##\s*@([\d.]+)(?:\s+"([^"]+)")?/);
+  if (!match) return null;
+  return {
+    type: "dayheader",
+    date: match[1]!,
+    label: match[2] ?? "",
+  };
+}
+
 export function parse(input: string): RoamTrip {
-  const lines = input.split("\n").filter((l) => l.trim() && !l.trim().startsWith("##"));
+  const lines = input.split("\n").filter((l) => l.trim());
   const chain: RoamTrip = [];
 
   for (const line of lines) {
     const trimmed = line.trim();
+
+    // Parse day headers
+    if (trimmed.startsWith("##")) {
+      const header = parseDayHeader(trimmed);
+      if (header) chain.push(header);
+      continue;
+    }
 
     if (trimmed.startsWith(">")) {
       const content = trimmed.slice(1).trim();

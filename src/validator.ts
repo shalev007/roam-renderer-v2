@@ -19,28 +19,32 @@ export function validate(trip: RoamTrip): ValidationError[] {
     return errors;
   }
 
-  // Must start with a node
-  if (trip[0]?.type !== "node") {
-    errors.push({ index: 0, message: "Trip must start with a node, got edge" });
+  // Find first non-dayheader item
+  const firstNonHeader = trip.find(item => item.type !== "dayheader");
+  if (firstNonHeader?.type !== "node") {
+    errors.push({ index: 0, message: "Trip must start with a node (after any day headers), got edge" });
   }
 
   // Must end with a node
-  const last = trip[trip.length - 1];
-  if (last?.type !== "node") {
+  const lastNonHeader = [...trip].reverse().find(item => item.type !== "dayheader");
+  if (lastNonHeader?.type !== "node") {
     errors.push({ index: trip.length - 1, message: "Trip must end with a node, got edge" });
   }
 
-  // Alternation: node, edge, node, edge, ..., node
-  for (let i = 1; i < trip.length; i++) {
-    const prev = trip[i - 1]!;
+  // Alternation: node, edge, node, edge, ..., node (skip dayheaders)
+  let prevNonHeader: typeof trip[number] | null = null;
+  for (let i = 0; i < trip.length; i++) {
     const curr = trip[i]!;
+    if (curr.type === "dayheader") continue;
 
-    if (prev.type === curr.type) {
+    if (prevNonHeader && prevNonHeader.type === curr.type) {
+      const label = curr.type === "node" ? curr.name : curr.mode;
       errors.push({
         index: i,
-        message: `Expected ${prev.type === "node" ? "edge" : "node"} at position ${i}, got ${curr.type} ("${curr.type === "node" ? curr.name : curr.mode}")`,
+        message: `Expected ${prevNonHeader.type === "node" ? "edge" : "node"} at position ${i}, got ${curr.type} ("${label}")`,
       });
     }
+    prevNonHeader = curr;
   }
 
   // Timestamps must be monotonically non-decreasing
@@ -48,6 +52,7 @@ export function validate(trip: RoamTrip): ValidationError[] {
 
   for (let i = 0; i < trip.length; i++) {
     const item = trip[i]!;
+    if (item.type === "dayheader") continue;
     const ts = item.type === "node" ? item.arrival : item.departure;
     if (!ts) continue;
 

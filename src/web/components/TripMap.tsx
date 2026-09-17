@@ -108,7 +108,7 @@ export function TripMap() {
       }
 
       if (ln.node.distanceToNext !== undefined) {
-        popup += `<br/>Next stop: ${fmtDistance(ln.node.distanceToNext)}`;
+        popup += `<br/>Next stop: ${fmtDistance(ln.node.distanceToNext)} (straight-line)`;
       }
 
       // Edge info (travel time, speed)

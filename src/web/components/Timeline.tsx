@@ -8,6 +8,10 @@ const EDGE_COLORS: Record<string, string> = {
   bus: "#f59e0b",
   flight: "#ec4899",
   taxi: "#8b5cf6",
+  car: "#10b981",
+  drive: "#10b981",
+  ferry: "#06b6d4",
+  boat: "#06b6d4",
 };
 
 function edgeColor(mode: string): string {

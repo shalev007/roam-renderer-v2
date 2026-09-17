@@ -1,5 +1,6 @@
 import type {
   DayAggregate,
+  DayHeader,
   DerivedEdge,
   DerivedNode,
   DerivedTrip,
@@ -40,7 +41,9 @@ export function derive(trip: RoamTrip): DerivedTrip {
   for (let i = 0; i < trip.length; i++) {
     const item = trip[i]!;
 
-    if (item.type === "node") {
+    if (item.type === "dayheader") {
+      out.push(item);
+    } else if (item.type === "node") {
       const node: DerivedNode = { ...item };
 
       // duration = time until next edge departs
@@ -97,18 +100,33 @@ export function derive(trip: RoamTrip): DerivedTrip {
 
 // ---- aggregation ----
 
-function deriveDayBoundaries(trip: DerivedTrip): { date: string; startIndex: number; endIndex: number }[] {
-  const boundaries: { date: string; startIndex: number; endIndex: number }[] = [];
+function deriveDayBoundaries(trip: DerivedTrip): { date: string; label: string; startIndex: number; endIndex: number }[] {
+  const boundaries: { date: string; label: string; startIndex: number; endIndex: number }[] = [];
   let currentDate: string | null = null;
+  const headerLabels = new Map<string, string>();
 
+  // First pass: collect day header labels
+  for (const item of trip) {
+    if (item.type === "dayheader") {
+      headerLabels.set(item.date, item.label);
+    }
+  }
+
+  // Second pass: derive boundaries from timestamps
   for (let i = 0; i < trip.length; i++) {
     const item = trip[i]!;
-    const ts = item.type === "node" ? item.arrival : item.departure;
+    if (item.type === "dayheader") continue;
+    const ts = item.type === "node" ? item.arrival : item.type === "edge" ? item.departure : undefined;
     if (!ts) continue;
 
     if (ts.date !== currentDate) {
       currentDate = ts.date;
-      boundaries.push({ date: ts.date, startIndex: i, endIndex: i });
+      boundaries.push({ 
+        date: ts.date, 
+        label: headerLabels.get(ts.date) ?? "", 
+        startIndex: i, 
+        endIndex: i 
+      });
     } else {
       boundaries[boundaries.length - 1]!.endIndex = i;
     }
@@ -130,10 +148,35 @@ function aggregateRange(trip: DerivedTrip, start: number, end: number) {
   let totalDuration = 0;
   let totalTravelTime = 0;
   let totalDistance = 0;
+  const costMap = new Map<string, { total: number; approximate: number; optional: number }>();
 
   for (let i = start; i <= end; i++) {
     const item = trip[i]!;
-    for (const c of item.costs) totalCost += c.amount;
+    if (item.type === "dayheader") continue;
+
+    if (item.type === "node" || item.type === "edge") {
+      for (const c of item.costs) {
+        totalCost += c.amount;
+        
+        const key = c.currency || "unknown";
+        const existing = costMap.get(key) ?? { total: 0, approximate: 0, optional: 0 };
+        
+        // Only add to total if not optional
+        if (!c.optional) {
+          existing.total += c.amount;
+        }
+        
+        if (c.approximate) {
+          existing.approximate += c.amount;
+        }
+        
+        if (c.optional) {
+          existing.optional += c.amount;
+        }
+        
+        costMap.set(key, existing);
+      }
+    }
 
     if (item.type === "node" && item.duration !== undefined) {
       totalDuration += item.duration;
@@ -144,7 +187,11 @@ function aggregateRange(trip: DerivedTrip, start: number, end: number) {
     }
   }
 
-  return { totalCost, totalDuration, totalTravelTime, totalDistance };
+  const costsByCurrency = Array.from(costMap.entries())
+    .map(([currency, { total, approximate, optional }]) => ({ currency, total, approximate, optional }))
+    .sort((a, b) => b.total - a.total);
+
+  return { costsByCurrency, totalCost, totalDuration, totalTravelTime, totalDistance };
 }
 
 export function aggregate(trip: DerivedTrip): TripAggregate {
@@ -152,7 +199,7 @@ export function aggregate(trip: DerivedTrip): TripAggregate {
 
   const days: DayAggregate[] = bounds.map((b, i) => ({
     date: b.date,
-    label: `Day ${i + 1}`,
+    label: b.label || `Day ${i + 1}`,
     startIndex: b.startIndex,
     endIndex: b.endIndex,
     ...aggregateRange(trip, b.startIndex, b.endIndex),

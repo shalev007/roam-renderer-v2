@@ -11,7 +11,7 @@ RUN npm run build:web
 FROM nginx:alpine AS production
 
 RUN rm -rf /usr/share/nginx/html/*
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder /app/dist/web /usr/share/nginx/html
 
 EXPOSE 80
 

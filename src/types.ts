@@ -22,6 +22,12 @@ export interface Timestamp {
   raw: string;
 }
 
+export interface DayHeader {
+  type: "dayheader";
+  date: string;     // DD.MM.YYYY
+  label: string;
+}
+
 export interface RoamNode {
   type: "node";
   name: string;
@@ -41,7 +47,8 @@ export interface RoamEdge {
 }
 
 // The trip is a flat linked list: [node, edge, node, edge, ..., node]
-export type RoamChainItem = RoamNode | RoamEdge;
+// (with optional day headers interspersed)
+export type RoamChainItem = DayHeader | RoamNode | RoamEdge;
 export type RoamTrip = RoamChainItem[];
 
 // ---- Derived (computed, never in .roam file) ----
@@ -62,22 +69,31 @@ export interface DerivedEdge extends RoamEdge {
   speed?: number;
 }
 
-export type DerivedChainItem = DerivedNode | DerivedEdge;
+export type DerivedChainItem = DayHeader | DerivedNode | DerivedEdge;
 export type DerivedTrip = DerivedChainItem[];
+
+export interface CostByCurrency {
+  currency: string;
+  total: number;
+  approximate: number;       // sum of approximate costs
+  optional: number;          // sum of optional costs
+}
 
 export interface DayAggregate {
   date: string;
-  label: string;
+  label: string;            // from day header or fallback "Day N"
   startIndex: number;
   endIndex: number;
-  totalCost: number;
+  costsByCurrency: CostByCurrency[];
+  totalCost: number;        // deprecated: sum of all costs ignoring currency
   totalDuration: number;    // minutes at places
   totalTravelTime: number;  // minutes in transit
   totalDistance: number;     // km
 }
 
 export interface TripAggregate {
-  totalCost: number;
+  costsByCurrency: CostByCurrency[];
+  totalCost: number;        // deprecated: sum of all costs ignoring currency
   totalDuration: number;
   totalTravelTime: number;
   totalDistance: number;

@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "rootDir": "src",
-    "outDir": "dist",
+    "outDir": "dist/cli",
     "module": "nodenext",
     "target": "es2022",
     "types": ["node"],
