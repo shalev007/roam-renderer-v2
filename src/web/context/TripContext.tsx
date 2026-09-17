@@ -9,7 +9,7 @@ export interface TripState {
 }
 
 type Action =
-  | { type: "SET_TRIP"; trip: DerivedTrip; agg: TripAggregate }
+  | { type: "SET_TRIP"; trip: DerivedTrip | null; agg: TripAggregate | null }
   | { type: "SELECT_DAY"; day: number | null }
   | { type: "SELECT_NODE"; node: number | null };
 

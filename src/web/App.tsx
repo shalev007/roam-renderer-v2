@@ -40,7 +40,7 @@ function Editor() {
         const parsed = parse(raw);
         const errors = validate(parsed);
         if (errors.length > 0) {
-          setError(errors.map((e) => `[${e.index}] ${e.message}`).join("\n"));
+          setError(errors.map((e) => `Line ${e.index}: ${e.message}`).join("\n"));
           return;
         }
         const trip = derive(parsed);
@@ -103,6 +103,29 @@ function Editor() {
     if (file) handleFile(file);
   };
 
+  const handleCopyLink = () => {
+    const b64 = btoa(text);
+    const url = `${window.location.origin}${window.location.pathname}?roam=${b64}`;
+    
+    // URL length limit check (most browsers support ~2000 chars safely)
+    if (url.length > 2000) {
+      setError("Trip is too long to share as URL (> 2000 chars). Download the .roam file or copy the text instead.");
+      return;
+    }
+    
+    navigator.clipboard.writeText(url);
+    // Optional: show success feedback
+    const originalError = error;
+    setError("✓ Link copied to clipboard!");
+    setTimeout(() => setError(originalError), 2000);
+  };
+
+  const handleClear = () => {
+    setText("");
+    setError(null);
+    dispatch({ type: "SET_TRIP", trip: null, agg: null });
+  };
+
   return (
     <div className="editor-panel">
       <div className="editor-header">
@@ -124,15 +147,19 @@ function Editor() {
           </button>
           <button
             className="btn-icon"
-            onClick={() => {
-              const b64 = btoa(text);
-              const url = `${window.location.origin}${window.location.pathname}?roam=${b64}`;
-              navigator.clipboard.writeText(url);
-            }}
+            onClick={handleCopyLink}
             disabled={!text.trim()}
             title="Copy shareable link"
           >
             🔗
+          </button>
+          <button
+            className="btn-icon"
+            onClick={handleClear}
+            disabled={!text.trim()}
+            title="Clear trip"
+          >
+            🗑️
           </button>
         </div>
       </div>
@@ -170,6 +197,16 @@ function Editor() {
 function Viewer() {
   const { trip, agg } = useTrip();
 
+  const handleCopyPrompt = async () => {
+    try {
+      const response = await fetch("/roam_prompt.md");
+      const prompt = await response.text();
+      await navigator.clipboard.writeText(prompt);
+    } catch (e) {
+      console.error("Failed to copy prompt:", e);
+    }
+  };
+
   if (!trip || !agg) {
     return (
       <div className="viewer-panel viewer-empty">
@@ -177,6 +214,19 @@ function Viewer() {
           <div className="empty-icon">🗺️</div>
           <h2>Live Preview</h2>
           <p>Edit your .roam file on the left to see your trip update here</p>
+          
+          <div className="empty-help">
+            <h3>✨ How to use with AI</h3>
+            <ol>
+              <li>Copy the LLM prompt below</li>
+              <li>Paste it into any LLM (ChatGPT, Claude, etc.)</li>
+              <li>Describe your trip</li>
+              <li>Paste the generated <code>.roam</code> code into the editor</li>
+            </ol>
+            <button className="btn-primary" onClick={handleCopyPrompt}>
+              📋 Copy LLM Prompt
+            </button>
+          </div>
         </div>
       </div>
     );
